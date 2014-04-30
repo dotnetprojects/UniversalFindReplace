@@ -22,6 +22,7 @@ using System.Globalization;
 using System.Collections;
 using System;
 using System.Windows.Forms.Integration;
+using ICSharpCode.NRefactory;
 
 namespace FindReplace
 {
