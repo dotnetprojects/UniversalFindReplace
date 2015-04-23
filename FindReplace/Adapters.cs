@@ -22,7 +22,6 @@ using System.Globalization;
 using System.Collections;
 using System;
 using System.Windows.Forms.Integration;
-using ICSharpCode.NRefactory;
 
 namespace FindReplace
 {
@@ -42,7 +41,7 @@ namespace FindReplace
         public void Select(int start, int length)
         {
             te.Select(start, length);
-            TextLocation loc = te.Document.GetLocation(start);
+            var loc = te.Document.GetLocation(start);
             te.ScrollTo(loc.Line, loc.Column);
         }
         public void Replace(int start, int length, string ReplaceWith) { te.Document.Replace(start, length, ReplaceWith); }
