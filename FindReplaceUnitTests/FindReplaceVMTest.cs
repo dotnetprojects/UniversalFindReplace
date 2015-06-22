@@ -40,17 +40,18 @@ namespace FindReplaceUnitTests
             FindReplaceMgr ret = new FindReplaceMgr() { Editors=Editors, InterfaceConverter=new IEditorConverter(), CurrentEditor=Editors[0] };
             return ret;
         }
-        private FindReplaceMgr_Accessor MakeSampleA(string SampleText)
-        {
-            Editors.Clear();
-            Editors.Add(new TextEditor() { Text = SampleText });
-            Editors.Add(new TextEditor() { Text = SampleText });
-            Editors.Add(new TextEditor() { Text = SampleText });
-            Editors.Add(new TextEditor() { Text = SampleText });
-
-            FindReplaceMgr_Accessor ret = new FindReplaceMgr_Accessor() { Editors = Editors, InterfaceConverter = new IEditorConverter(), CurrentEditor = Editors[0] };
-            return ret;
-        }
+        
+//        private FindReplaceMgr_Accessor MakeSampleA(string SampleText)
+//        {
+//            Editors.Clear();
+//            Editors.Add(new TextEditor() { Text = SampleText });
+//            Editors.Add(new TextEditor() { Text = SampleText });
+//            Editors.Add(new TextEditor() { Text = SampleText });
+//            Editors.Add(new TextEditor() { Text = SampleText });
+//
+//            FindReplaceMgr_Accessor ret = new FindReplaceMgr_Accessor() { Editors = Editors, InterfaceConverter = new IEditorConverter(), CurrentEditor = Editors[0] };
+//            return ret;
+//        }
 
         /// <summary>
         ///Gets or sets the test context which provides
@@ -102,46 +103,46 @@ namespace FindReplaceUnitTests
         /// <summary>
         ///A test for GetNextEditor
         ///</summary>
-        [TestMethod()]
-        [DeploymentItem("FindReplace.dll")]
-        public void GetNextEditorTest()
-        {
-            FindReplaceMgr_Accessor target = MakeSampleA(DefSampleText);
-            for (int i=0;i<4;i++) 
-                Editors[i].Text = "Edt:"+i +" "+ Editors[i].Text; 
-            bool previous = false;                        
-            IEditor actual;
-
-            actual = target.GetNextEditor(previous);
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-            actual = target.GetNextEditor(true);
-            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-
-            target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[1]);
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-            actual = target.GetNextEditor(previous);
-            actual = target.GetNextEditor(previous);
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[1]);
-
-            previous = true;
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[3]);
-            actual = target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-
-
-            // if currenteditor is not in list, the same editor has to be returned
-            target.Editors = null;
-            target.GetNextEditor(previous);
-            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-        }
+//        [TestMethod()]
+//        [DeploymentItem("FindReplace.dll")]
+//        public void GetNextEditorTest()
+//        {
+//            FindReplaceMgr_Accessor target = MakeSampleA(DefSampleText);
+//            for (int i=0;i<4;i++) 
+//                Editors[i].Text = "Edt:"+i +" "+ Editors[i].Text; 
+//            bool previous = false;                        
+//            IEditor actual;
+//
+//            actual = target.GetNextEditor(previous);
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+//            actual = target.GetNextEditor(true);
+//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+//
+//            target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[1]);
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+//            actual = target.GetNextEditor(previous);
+//            actual = target.GetNextEditor(previous);
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[1]);
+//
+//            previous = true;
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[3]);
+//            actual = target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+//
+//
+//            // if currenteditor is not in list, the same editor has to be returned
+//            target.Editors = null;
+//            target.GetNextEditor(previous);
+//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+//        }
 
         /// <summary>
         ///A test for Replace

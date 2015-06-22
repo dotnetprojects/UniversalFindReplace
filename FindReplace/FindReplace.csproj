@@ -42,7 +42,7 @@
       <HintPath>..\lib\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>..\..\..\..\..\git\mcc4\usedExternalProjects\wpf\icsharpwpfdesign\ICSharpCode.NRefactory.dll</HintPath>
+      <HintPath>..\lib\ICSharpCode.NRefactory.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
