@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>DotNetProjects.UniversalFindReplace</id>
+    <version>$version$</version>
+    <authors>DotNetProjects</authors>
+    <owners>DotNetProjects</owners>
+    <licenseUrl>https://github.com/dotnetprojects/UniversalFindReplace/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/dotnetprojects/UniversalFindReplace/</projectUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+	<description>...</description>
+    <copyright>Copyright 2015</copyright>
+  </metadata>
+  <files>
+    <file src="..\FindReplace\bin\Debug\FindReplace.dll" target="lib\net40" />
+    <file src="..\FindReplace\bin\Debug\FindReplace.pdb" target="lib\net40" />
+  </files>
+</package>
