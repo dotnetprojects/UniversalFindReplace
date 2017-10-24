@@ -401,7 +401,10 @@ namespace FindReplace
             Match m = r.Match(s);
             if (m.Success && m.Index == 0 && m.Length == s.Length)
             {
-                CE.Replace(CE.SelectionStart, CE.SelectionLength, ReplacementText);
+                var txt = ReplacementText;
+                if (UseRegEx)
+                    txt = r.Replace(s, ReplacementText);
+                CE.Replace(CE.SelectionStart, CE.SelectionLength, txt);
                 //CE.SelectedText = ReplacementText;
             }
 
