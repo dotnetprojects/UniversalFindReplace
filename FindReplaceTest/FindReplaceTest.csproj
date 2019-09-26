@@ -39,12 +39,6 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ICSharpCode.AvalonEdit">
-      <HintPath>..\lib\ICSharpCode.AvalonEdit.dll</HintPath>
-    </Reference>
-    <Reference Include="ICSharpCode.NRefactory">
-      <HintPath>..\lib\ICSharpCode.NRefactory.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Windows.Forms" />
@@ -106,8 +100,13 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="AvalonEdit">
+      <Version>6.0.0</Version>
+    </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\FindReplace\FindReplace.csproj">
-      <Project>{F6237B7D-9A3B-4F55-961B-72035B0DEA4D}</Project>
+      <Project>{f6237b7d-9a3b-4f55-961b-72035b0dea4d}</Project>
       <Name>FindReplace</Name>
     </ProjectReference>
   </ItemGroup>

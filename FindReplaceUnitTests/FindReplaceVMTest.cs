@@ -7,20 +7,21 @@
 */
 
 using FindReplace;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 using ICSharpCode.AvalonEdit;
 using System.Collections.Generic;
+using NUnit.Framework;
+using System.Threading;
 
 namespace FindReplaceUnitTests
 {
-    
-    
+
+
     /// <summary>
     ///This is a test class for FindReplaceVMTest and is intended
     ///to contain all FindReplaceVMTest Unit Tests
     ///</summary>
-    [TestClass()]
+    [TestFixture, Apartment(ApartmentState.STA)]
     public class FindReplaceVMTest
     {
 
@@ -103,51 +104,51 @@ namespace FindReplaceUnitTests
         /// <summary>
         ///A test for GetNextEditor
         ///</summary>
-//        [TestMethod()]
-//        [DeploymentItem("FindReplace.dll")]
-//        public void GetNextEditorTest()
-//        {
-//            FindReplaceMgr_Accessor target = MakeSampleA(DefSampleText);
-//            for (int i=0;i<4;i++) 
-//                Editors[i].Text = "Edt:"+i +" "+ Editors[i].Text; 
-//            bool previous = false;                        
-//            IEditor actual;
-//
-//            actual = target.GetNextEditor(previous);
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-//            actual = target.GetNextEditor(true);
-//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-//
-//            target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[1]);
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-//            actual = target.GetNextEditor(previous);
-//            actual = target.GetNextEditor(previous);
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[1]);
-//
-//            previous = true;
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[0]);
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[3]);
-//            actual = target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-//
-//
-//            // if currenteditor is not in list, the same editor has to be returned
-//            target.Editors = null;
-//            target.GetNextEditor(previous);
-//            Assert.AreEqual(target.CurrentEditor, Editors[2]);
-//        }
+        //        [Test]
+        //        [DeploymentItem("FindReplace.dll")]
+        //        public void GetNextEditorTest()
+        //        {
+        //            FindReplaceMgr_Accessor target = MakeSampleA(DefSampleText);
+        //            for (int i=0;i<4;i++) 
+        //                Editors[i].Text = "Edt:"+i +" "+ Editors[i].Text; 
+        //            bool previous = false;                        
+        //            IEditor actual;
+        //
+        //            actual = target.GetNextEditor(previous);
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+        //            actual = target.GetNextEditor(true);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+        //
+        //            target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[1]);
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+        //            actual = target.GetNextEditor(previous);
+        //            actual = target.GetNextEditor(previous);
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[1]);
+        //
+        //            previous = true;
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[0]);
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[3]);
+        //            actual = target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+        //
+        //
+        //            // if currenteditor is not in list, the same editor has to be returned
+        //            target.Editors = null;
+        //            target.GetNextEditor(previous);
+        //            Assert.AreEqual(target.CurrentEditor, Editors[2]);
+        //        }
 
         /// <summary>
         ///A test for Replace
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void ReplaceTest()
         {
             FindReplaceMgr target = MakeSample(@"Hallo 1 bla bla Hallo2 Hallo 3. Testen testen test tesssst");
@@ -157,21 +158,21 @@ namespace FindReplaceUnitTests
             target.Replace();
             target.Replace();
 
-            Assert.AreEqual<string>(Editors[0].Text, @"Hallo 1 blu bla Hallo2 Hallo 3. Testen testen test tesssst");
+            Assert.AreEqual(Editors[0].Text, @"Hallo 1 blu bla Hallo2 Hallo 3. Testen testen test tesssst");
 
             target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
             target.FindNext();
             target.Replace();
             target.Replace();
 
-            Assert.AreEqual<string>(Editors[1].Text, @"Hallo 1 blu blu Hallo2 Hallo 3. Testen testen test tesssst");
+            Assert.AreEqual(Editors[1].Text, @"Hallo 1 blu blu Hallo2 Hallo 3. Testen testen test tesssst");
         }
 
 
         /// <summary>
         ///A test for ReplaceAll
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void ReplaceAllTest()
         {
             FindReplaceMgr target = MakeSample(@"Hallo 1 bla bla Hallo2 Hallo 3. Testen testen test tesssst");
@@ -182,31 +183,31 @@ namespace FindReplaceUnitTests
 
             // test basic replacement
             target.ReplaceAll(AskBefore);           
-            Assert.AreEqual<string>(Editors[0].Text, @"Hallo 1 bla bla Hallo2 Hallo 3. xxx test tesssst");
+            Assert.AreEqual(Editors[0].Text, @"Hallo 1 bla bla Hallo2 Hallo 3. xxx test tesssst");
 
             // test wrapping through all open files
             target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
             target.TextToFind = "bla";
             target.ReplaceAll(AskBefore);            
-            Assert.AreEqual<string>(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
-            Assert.AreEqual<string>(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
-            Assert.AreEqual<string>(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx test tesssst");
+            Assert.AreEqual(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
+            Assert.AreEqual(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
+            Assert.AreEqual(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx test tesssst");
 
             // variable length
             target.UseWildcards = true;
             target.CaseSensitive = true;
             target.TextToFind = "tes*st";
             target.ReplaceAll(AskBefore);
-            Assert.AreEqual<string>(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
-            Assert.AreEqual<string>(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
-            Assert.AreEqual<string>(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx xxx");
+            Assert.AreEqual(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
+            Assert.AreEqual(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
+            Assert.AreEqual(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx xxx");
 
         }
 
         /// <summary>
         ///A test for FindPrevious
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void FindPreviousTest()
         {
 
@@ -217,14 +218,14 @@ namespace FindReplaceUnitTests
             target.TextToFind = "Hallo";
             Editors[0].SelectionStart = 27;
             target.FindPrevious();
-            Assert.AreEqual<int>(16, Editors[0].SelectionStart);
+            Assert.AreEqual(16, Editors[0].SelectionStart);
             Editors[0].SelectionStart = 28;
             target.FindPrevious();
-            Assert.AreEqual<int>(23, Editors[0].SelectionStart);
+            Assert.AreEqual(23, Editors[0].SelectionStart);
             target.FindPrevious();
-            Assert.AreEqual<int>(16, Editors[0].SelectionStart);
+            Assert.AreEqual(16, Editors[0].SelectionStart);
 
-            //Assert.AreEqual<string>(Editors[0].SelectedText, "bla Hallo2");
+            //Assert.AreEqual(Editors[0].SelectedText, "bla Hallo2");
 
             // wildcards
             //Editors[0].CaretOffset = 0;
@@ -235,7 +236,7 @@ namespace FindReplaceUnitTests
         /// <summary>
         ///A test for FindNext
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void FindNextTest()
         {
             FindReplaceMgr target = MakeSample(@"Hallo 1 bla bla Hallo2 Hallo 3. Testen testen test tesssst");
@@ -244,29 +245,29 @@ namespace FindReplaceUnitTests
             target.CaseSensitive = false;
             target.TextToFind = "bla hallo2";
             target.FindNext();
-            Assert.AreEqual<int>(12+target.TextToFind.Length, Editors[0].CaretOffset);
-            Assert.AreEqual<string>("bla Hallo2", Editors[0].SelectedText);
+            Assert.AreEqual(12+target.TextToFind.Length, Editors[0].CaretOffset);
+            Assert.AreEqual("bla Hallo2", Editors[0].SelectedText);
 
             // wildcards
             Editors[0].CaretOffset = 0;
             target.UseWildcards = true;
             target.TextToFind = " ha*o2";
             target.FindNext();
-            Assert.AreEqual<int>(22, Editors[0].CaretOffset);
-            Assert.AreEqual<string>(" Hallo2", Editors[0].SelectedText);
+            Assert.AreEqual(22, Editors[0].CaretOffset);
+            Assert.AreEqual(" Hallo2", Editors[0].SelectedText);
             Editors[0].CaretOffset = 0;
             target.TextToFind = " ha?o2";
             target.FindNext();
-            Assert.AreEqual<int>(0, Editors[0].CaretOffset);
+            Assert.AreEqual(0, Editors[0].CaretOffset);
             Editors[0].CaretOffset = 0;
             target.TextToFind = " ha??o2";
             target.FindNext();
-            Assert.AreEqual<int>(22, Editors[0].CaretOffset);
+            Assert.AreEqual(22, Editors[0].CaretOffset);
             target.CaseSensitive = true;
             Editors[0].CaretOffset = 0;
             target.TextToFind = " ha??o2";
             target.FindNext();
-            Assert.AreEqual<int>(0, Editors[0].CaretOffset);
+            Assert.AreEqual(0, Editors[0].CaretOffset);
 
             // regex
             Editors[0].CaretOffset = 0;
@@ -276,12 +277,12 @@ namespace FindReplaceUnitTests
             target.CaseSensitive = true;
             target.TextToFind = @"hallo\d\s+bla";            
             target.FindNext();
-            Assert.AreEqual<int>(0, Editors[0].CaretOffset);
+            Assert.AreEqual(0, Editors[0].CaretOffset);
 
             target.CaseSensitive = false;
             target.FindNext();
-            Assert.AreEqual<int>(22, Editors[0].CaretOffset);
-            Assert.AreEqual<string>("Hallo2   bla", Editors[0].SelectedText);
+            Assert.AreEqual(22, Editors[0].CaretOffset);
+            Assert.AreEqual("Hallo2   bla", Editors[0].SelectedText);
 
             // jump over several editors            
             Editors[0].Text = Editors[1].Text = @"Hallo1bla Hallo2   bla. Testen testen test tesssst";
@@ -306,7 +307,7 @@ namespace FindReplaceUnitTests
         /// <summary>
         ///A second test for FindNext
         ///</summary>
-        [TestMethod()]
+        [Test]
         public void FindNextTest2()
         {
             FindReplaceMgr target = MakeSample(@"aaaaaaaaaaaaaaa");
@@ -315,15 +316,15 @@ namespace FindReplaceUnitTests
             target.CaseSensitive = false;
             target.TextToFind = "a";
             target.FindNext();
-            Assert.AreEqual<int>(1, Editors[0].CaretOffset);
+            Assert.AreEqual(1, Editors[0].CaretOffset);
             target.FindNext();
-            Assert.AreEqual<int>(2, Editors[0].CaretOffset);
+            Assert.AreEqual(2, Editors[0].CaretOffset);
             target.FindNext();
-            Assert.AreEqual<int>(3, Editors[0].CaretOffset);
+            Assert.AreEqual(3, Editors[0].CaretOffset);
             target.FindNext();
-            Assert.AreEqual<int>(4, Editors[0].CaretOffset);
+            Assert.AreEqual(4, Editors[0].CaretOffset);
             target.FindNext();
-            Assert.AreEqual<int>(5, Editors[0].CaretOffset);
+            Assert.AreEqual(5, Editors[0].CaretOffset);
         }
     }
 }

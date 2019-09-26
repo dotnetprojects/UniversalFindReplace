@@ -306,6 +306,7 @@ namespace FindReplace
         public void ShowAsFind()
         {
             dialog.tabMain.SelectedIndex = 0;
+            dialog.txtFind.SelectAll();
             dialog.Show();
             dialog.Activate();
             dialog.txtFind.Focus();
@@ -321,6 +322,7 @@ namespace FindReplace
         public void ShowAsReplace()
         {
             dialog.tabMain.SelectedIndex = 1;
+            dialog.txtFind.SelectAll();
             dialog.Show();
             dialog.Activate();
             dialog.txtFind2.Focus();
