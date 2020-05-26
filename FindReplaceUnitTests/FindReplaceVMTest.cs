@@ -182,13 +182,15 @@ namespace FindReplaceUnitTests
             bool AskBefore = false;
 
             // test basic replacement
-            target.ReplaceAll(AskBefore);           
+            target.ShowReplaceAllConfirmationPrompt = AskBefore;
+            target.ReplaceAll();
             Assert.AreEqual(Editors[0].Text, @"Hallo 1 bla bla Hallo2 Hallo 3. xxx test tesssst");
 
             // test wrapping through all open files
             target.SearchIn = FindReplaceMgr.SearchScope.AllDocuments;
             target.TextToFind = "bla";
-            target.ReplaceAll(AskBefore);            
+            target.ShowReplaceAllConfirmationPrompt = AskBefore;
+            target.ReplaceAll();
             Assert.AreEqual(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
             Assert.AreEqual(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen testen test tesssst");
             Assert.AreEqual(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx test tesssst");
@@ -197,7 +199,8 @@ namespace FindReplaceUnitTests
             target.UseWildcards = true;
             target.CaseSensitive = true;
             target.TextToFind = "tes*st";
-            target.ReplaceAll(AskBefore);
+            target.ShowReplaceAllConfirmationPrompt = AskBefore;
+            target.ReplaceAll();
             Assert.AreEqual(Editors[2].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
             Assert.AreEqual(Editors[1].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. Testen xxx");
             Assert.AreEqual(Editors[0].Text, @"Hallo 1 xxx xxx Hallo2 Hallo 3. xxx xxx");
