@@ -214,7 +214,16 @@ namespace FindReplace
         public static readonly DependencyProperty OwnerWindowProperty =
             DependencyProperty.Register("OwnerWindow", typeof(Window), typeof(FindReplaceMgr), new UIPropertyMetadata(null));
 
-        
+        /// <summary>
+        /// Determines whether to display the confirmation Prompt when pressing replace all
+        /// </summary>
+        public bool ShowReplaceAllConfirmationPrompt
+        {
+            get { return (bool)GetValue(ShowReplaceAllConfirmationPromptProperty); }
+            set { SetValue(ShowReplaceAllConfirmationPromptProperty, value); }
+        }
+        public static readonly DependencyProperty ShowReplaceAllConfirmationPromptProperty =
+            DependencyProperty.Register("ShowReplaceAllPrompt", typeof(bool), typeof(FindReplaceMgr), new UIPropertyMetadata(true));
 
         #endregion
 
@@ -274,12 +283,12 @@ namespace FindReplace
             return r;
         }
 
-        public void ReplaceAll(bool AskBefore = true)
+        public void ReplaceAll()
         {
             IEditor CE = GetCurrentEditor();
             if (CE == null) return;
 
-            if (!AskBefore || MessageBox.Show("Do you really want to replace all occurences of '" + TextToFind + "' with '" + ReplacementText + "'?",
+            if (!ShowReplaceAllConfirmationPrompt || MessageBox.Show("Do you really want to replace all occurences of '" + TextToFind + "' with '" + ReplacementText + "'?",
                 "Replace all", MessageBoxButton.YesNoCancel, MessageBoxImage.Exclamation) == MessageBoxResult.Yes)
             {
                 object InitialEditor = CurrentEditor;
